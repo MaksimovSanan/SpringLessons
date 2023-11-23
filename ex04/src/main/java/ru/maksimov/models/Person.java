@@ -1,17 +1,17 @@
 package ru.maksimov.models;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
 
 public class Person {
     int id;
-    @NotNull
+    @NotEmpty(message = "Name should not be empty")
     String name;
-    @Min(0)
+    @Min(value = 0, message = "Age should be greater than 0")
     Integer age;
-    @NotNull
-    @Email
+    @NotEmpty(message = "email should not be empty")
+    @Email(message = "Email should be valid")
     String email;
 
     public Person(){}

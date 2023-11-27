@@ -29,7 +29,7 @@ public class BatchController {
     }
 
     @DeleteMapping
-    public String batchDelete(@RequestParam("begin") int  begin, @RequestParam("end") int end) {
+    public String batchDelete(@RequestParam("begin") int begin, @RequestParam("end") int end) {
         personDAO.batchDelete(begin, end);
         return "redirect:/people";
     }

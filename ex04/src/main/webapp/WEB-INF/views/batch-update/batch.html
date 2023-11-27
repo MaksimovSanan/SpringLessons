@@ -6,27 +6,42 @@
 </head>
 <body>
 
-<text>Test batch update</text>
+<p>
+    <strong>
+        Test Batch update
+    </strong>
+</p>
 <br/>
 <hr/>
 
-<text>Batch save</text>
+<p>
+    <code>
+        batchUpdate
+    </code>
+</p>
 <form th:method="POST" th:action="@{/batch-update}">
     <label for="quantity"> Number of requests for batch update</label>
     <input name = "quantity" type="text" id="quantity">
+    <br/>
     <br/>
     <input type="submit" value="Test batch save"/>
 </form>
 
 <br/>
 <hr/>
-<text>Batch delete</text>
+<p>
+    <code>
+        batchDelete
+    </code>
+</p>
 <form th:method="DELETE" th:action="@{/batch-update}">
     <label for="begin"> First id for batch delete</label>
     <input name = "begin" type="text" id="begin">
     <br/>
+    <br/>
     <label for="end"> Last id for batch delete</label>
     <input name = "end" type="text" id="end">
+    <br/>
     <br/>
     <input type="submit" value="Test batch delete"/>
 </form>

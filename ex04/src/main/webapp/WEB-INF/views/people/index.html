@@ -18,7 +18,9 @@
 </form>
 
 <br/>
-<a th:href="@{/batch-update}">Test Batch update</a>
+<form th:method="GET" th:action="@{/batch-update}">
+    <input type="submit" value="Batch update"/>
+</form>
 
 </body>
 </html>

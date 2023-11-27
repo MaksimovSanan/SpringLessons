@@ -1,0 +1,4 @@
+driver=<your db driver>
+url=<your db url>
+user=<your db user>
+password=<your db password>

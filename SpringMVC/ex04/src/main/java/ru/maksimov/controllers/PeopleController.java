@@ -9,7 +9,9 @@ import ru.maksimov.dao.PersonDAO;
 import ru.maksimov.models.Person;
 import ru.maksimov.util.PersonValidator;
 
+import javax.swing.text.html.Option;
 import javax.validation.Valid;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/people")
@@ -32,7 +34,13 @@ public class PeopleController {
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model) {
-        model.addAttribute("person", personDAO.show(id));
+        Optional<Person> person = personDAO.show(id);
+        if(person.isPresent()) {
+            model.addAttribute("person", person.get());
+        }
+        else{
+            // add not found error
+        }
         return "people/show";
     }
 
@@ -58,7 +66,13 @@ public class PeopleController {
 
     @GetMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") int id) {
-        model.addAttribute("person", personDAO.show(id));
+        Optional<Person> person = personDAO.show(id);
+        if(person.isPresent()) {
+            model.addAttribute("person", person.get());
+        }
+        else{
+            // add not found error
+        }
         return "people/edit";
     }
 

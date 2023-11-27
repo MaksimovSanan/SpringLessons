@@ -1,1 +1,1 @@
-# SpringMVCLessons
+# SpringLessons

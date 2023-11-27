@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://tymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>BatchUpdate</title>
+</head>
+<body>
+
+<text>Test batch update</text>
+<br/>
+<hr/>
+
+<text>Batch save</text>
+<form th:method="POST" th:action="@{/batch-update}">
+    <label for="quantity"> Number of requests for batch update</label>
+    <input name = "quantity" type="text" id="quantity">
+    <br/>
+    <input type="submit" value="Test batch save"/>
+</form>
+
+<br/>
+<hr/>
+<text>Batch delete</text>
+<form th:method="DELETE" th:action="@{/batch-update}">
+    <label for="begin"> First id for batch delete</label>
+    <input name = "begin" type="text" id="begin">
+    <br/>
+    <label for="end"> Last id for batch delete</label>
+    <input name = "end" type="text" id="end">
+    <br/>
+    <input type="submit" value="Test batch delete"/>
+</form>
+</body>
+</html>

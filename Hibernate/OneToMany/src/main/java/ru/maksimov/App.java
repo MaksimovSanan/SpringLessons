@@ -41,7 +41,6 @@ public class App
             try(Session session = sessionFactory.getCurrentSession()) {
                 session.beginTransaction();
 
-
                 Movie movie = session.get(Movie.class, 3);
                 System.out.println("Movie with id = 3:");
                 System.out.println(movie);

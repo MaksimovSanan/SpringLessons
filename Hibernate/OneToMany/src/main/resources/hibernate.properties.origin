@@ -1,0 +1,10 @@
+#configuration for DataSource
+hibernate.driver_class=<Insert your Driver>
+hibernate.connection.url=<Insert your url connection>
+hibernate.connection.username=<Insert your username>
+hibernate.connection.password=<Insert your password>
+
+#configuration for Hibernate
+hibernate.dialect=<insert your Dialect>
+hibernate.show_sql=true
+hibernate.current_session_context_class=thread

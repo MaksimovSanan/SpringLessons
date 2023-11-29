@@ -1,7 +1,10 @@
 package ru.maksimov.models;
 
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -19,6 +22,7 @@ public class Producer {
     int age;
 
     @OneToMany(mappedBy = "producer")
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private List<Movie> movies;
 
     public Producer() {
@@ -27,6 +31,13 @@ public class Producer {
     public Producer(String name, int age) {
         this.name = name;
         this.age = age;
+    }
+
+    public void addMovie(Movie movie) {
+        if(movies == null) {
+            movies = new ArrayList<>();
+        }
+        movies.add(movie);
     }
 
     public int getProducer_id() {

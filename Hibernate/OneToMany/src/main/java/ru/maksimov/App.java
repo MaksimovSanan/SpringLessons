@@ -23,6 +23,9 @@ public class App
 //
 //            Movie movie = new Movie(producer, "abobaMovie", 2023);
 //            producer.addMovie(movie);
+
+//        CASCADE SAVE
+
 //            session.save(producer);
 //
 //            session.getTransaction().commit();

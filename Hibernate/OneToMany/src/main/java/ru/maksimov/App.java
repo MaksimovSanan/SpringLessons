@@ -6,11 +6,6 @@ import org.hibernate.cfg.Configuration;
 import ru.maksimov.models.Movie;
 import ru.maksimov.models.Producer;
 
-
-/**
- * Hello world!
- *
- */
 public class App
 {
     public static void main( String[] args )

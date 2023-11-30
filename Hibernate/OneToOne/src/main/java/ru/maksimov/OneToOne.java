@@ -1,13 +1,12 @@
 package ru.maksimov;
 
-import jdk.nashorn.internal.runtime.Scope;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import ru.maksimov.models.Director;
 import ru.maksimov.models.School;
 
-public class App 
+public class OneToOne
 {
     public static void main( String[] args )
     {

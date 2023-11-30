@@ -6,7 +6,7 @@ import org.hibernate.cfg.Configuration;
 import ru.maksimov.models.Movie;
 import ru.maksimov.models.Producer;
 
-public class App
+public class OneToMany
 {
     public static void main( String[] args )
     {

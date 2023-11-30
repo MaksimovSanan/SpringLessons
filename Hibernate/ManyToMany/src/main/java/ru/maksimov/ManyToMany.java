@@ -17,9 +17,7 @@ public class ManyToMany
 //                .addAnnotatedClass(Producer.class)
 //                .addAnnotatedClass(Actor.class);
 //
-//        SessionFactory sessionFactory = configuration.buildSessionFactory();
-//
-//        try(Session session = sessionFactory.getCurrentSession()) {
+//        try (SessionFactory sessionFactory = configuration.buildSessionFactory(); Session session = sessionFactory.getCurrentSession()) {
 //            session.beginTransaction();
 //
 //            Actor actor = new Actor("ABOBA", 99);
@@ -36,9 +34,7 @@ public class ManyToMany
                 .addAnnotatedClass(Producer.class)
                 .addAnnotatedClass(Actor.class);
 
-        SessionFactory sessionFactory = configuration.buildSessionFactory();
-
-        try(Session session = sessionFactory.getCurrentSession()) {
+        try (SessionFactory sessionFactory = configuration.buildSessionFactory(); Session session = sessionFactory.getCurrentSession()) {
             session.beginTransaction();
 
             Movie movie = session.get(Movie.class, 2);
@@ -47,12 +43,12 @@ public class ManyToMany
             System.out.println(movie);
 
             System.out.println("Actors of this movie:");
-            for(Actor actor: movie.getActors()) {
+            for (Actor actor : movie.getActors()) {
                 System.out.println(actor);
 
                 System.out.println("All movies of this actor:");
 
-                for(Movie anotherMovie : actor.getMovies()) {
+                for (Movie anotherMovie : actor.getMovies()) {
                     System.out.println(anotherMovie);
                 }
 

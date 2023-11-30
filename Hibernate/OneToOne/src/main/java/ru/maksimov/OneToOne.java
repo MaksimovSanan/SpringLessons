@@ -15,9 +15,7 @@ public class OneToOne
                 .addAnnotatedClass(Director.class)
                 .addAnnotatedClass(School.class);
 
-        SessionFactory sessionFactory = configuration.buildSessionFactory();
-
-//        try(Session session = sessionFactory.getCurrentSession()) {
+//        try (SessionFactory sessionFactory = configuration.buildSessionFactory(); Session session = sessionFactory.getCurrentSession()) {
 //            session.beginTransaction();
 //
 //            Director director = new Director("ABOBA", 100);
@@ -33,7 +31,7 @@ public class OneToOne
 //            session.getTransaction().commit();
 //        }
 
-        try(Session session = sessionFactory.getCurrentSession()) {
+        try (SessionFactory sessionFactory = configuration.buildSessionFactory(); Session session = sessionFactory.getCurrentSession()) {
             session.beginTransaction();
 
             School school = session.get(School.class, 2);
@@ -51,7 +49,7 @@ public class OneToOne
 
 //        ERROR 2 SCHOOLS WILL HAVE 1 DIRECTORS
 
-//        try(Session session = sessionFactory.getCurrentSession()) {
+//        try (SessionFactory sessionFactory = configuration.buildSessionFactory(); Session session = sessionFactory.getCurrentSession()) {
 //            session.beginTransaction();
 //
 //            Director director = session.get(Director.class, 14);

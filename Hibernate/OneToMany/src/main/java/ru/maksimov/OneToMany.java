@@ -14,9 +14,8 @@ public class OneToMany
 //                addAnnotatedClass(Producer.class).
 //                addAnnotatedClass(Movie.class);
 //
-//        SessionFactory sessionFactory = configuration.buildSessionFactory();
 //
-//        try(Session session = sessionFactory.getCurrentSession()) {
+//        try (SessionFactory sessionFactory = configuration.buildSessionFactory(); Session session = sessionFactory.getCurrentSession()) {
 //            session.beginTransaction();
 //
 //            Producer producer = new Producer("aboba", 99);
@@ -36,9 +35,7 @@ public class OneToMany
                     addAnnotatedClass(Producer.class).
                     addAnnotatedClass(Movie.class);
 
-            SessionFactory sessionFactory = configuration.buildSessionFactory();
-
-            try(Session session = sessionFactory.getCurrentSession()) {
+            try (SessionFactory sessionFactory = configuration.buildSessionFactory(); Session session = sessionFactory.getCurrentSession()) {
                 session.beginTransaction();
 
                 Movie movie = session.get(Movie.class, 3);
@@ -51,7 +48,7 @@ public class OneToMany
                 System.out.println(producer);
 
                 System.out.println("All movies this producer:");
-                for(Movie anotherMovies : producer.getMovies()) {
+                for (Movie anotherMovies : producer.getMovies()) {
                     System.out.println(anotherMovies);
                 }
                 session.getTransaction().commit();

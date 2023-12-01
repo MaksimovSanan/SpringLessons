@@ -12,6 +12,7 @@
         <module>OneToMany</module>
         <module>OneToOne</module>
         <module>ManyToMany</module>
+        <module>HibernateCRUD</module>
     </modules>
 
 

@@ -39,7 +39,8 @@ public class PeopleController {
             model.addAttribute("person", person.get());
         }
         else{
-            // add not found error
+            model.addAttribute("id", id);
+            return "people/notFound";
         }
         return "people/show";
     }
@@ -71,7 +72,7 @@ public class PeopleController {
             model.addAttribute("person", person.get());
         }
         else{
-            // add not found error
+            return "people/notFound";
         }
         return "people/edit";
     }

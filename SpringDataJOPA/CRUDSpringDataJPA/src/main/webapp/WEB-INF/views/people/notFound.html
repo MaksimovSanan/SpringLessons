@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+Person with id: <th:block th:if="${id}">[[${id}]]</th:block> not found
+<br/>
+<form th:method="GET" th:action="@{/people/new}">
+    <input type="submit" value="Create new person"/>
+</form>
+</body>
+</html>

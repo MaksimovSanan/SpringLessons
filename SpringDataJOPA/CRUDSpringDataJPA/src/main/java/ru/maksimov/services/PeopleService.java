@@ -25,9 +25,13 @@ public class PeopleService {
         return people;
     }
 
-    public Person findByid(int id) {
+    public Optional<Person> findById(int id) {
         Optional<Person> person = peopleRepository.findById(id);
-        return person.orElse(null);
+        return person;
+    }
+    
+    public Optional<Person> findByEmail(String email) {
+        return peopleRepository.findByEmail(email);
     }
 
     @Transactional

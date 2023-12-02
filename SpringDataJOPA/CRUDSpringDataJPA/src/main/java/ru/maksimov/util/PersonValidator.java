@@ -5,15 +5,16 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 import ru.maksimov.models.Person;
+import ru.maksimov.services.PeopleService;
 
 @Component
 public class PersonValidator implements Validator {
 
-    private final PersonDAO personDAO;
+    private final PeopleService peopleService;
 
     @Autowired
-    public PersonValidator(PersonDAO personDAO) {
-        this.personDAO = personDAO;
+    public PersonValidator(PeopleService peopleService) {
+        this.peopleService = peopleService;
     }
 
     @Override
@@ -25,7 +26,7 @@ public class PersonValidator implements Validator {
     public void validate(Object o, Errors errors) {
         Person person = (Person) o;
 
-        if(personDAO.show(person.getEmail()).isPresent()) {
+        if(peopleService.findByEmail(person.getEmail()).isPresent()) {
             errors.rejectValue("email", "", "This email is already taken");
         }
     }

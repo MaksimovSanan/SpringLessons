@@ -28,29 +28,47 @@ public class PeopleController {
 
     @GetMapping()
     public String index(Model model){
-        return null;
+        model.addAttribute("people", peopleService.findAll());
+        return "people/index";
     }
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model) {
-        return null;
+        Optional<Person> person = peopleService.findById(id);
+        if(!person.isPresent()) {
+            model.addAttribute("id", id);
+            return "people/notFound";
+        }
+        model.addAttribute("person", person.get());
+        return "people/show";
     }
 
     @GetMapping("/new")
     public String newPerson(@ModelAttribute("person") Person person) {
-        return null;
+        return "people/new";
     }
 
     @PostMapping()
     public String createNewPerson(@ModelAttribute("person") @Valid Person person,
                                   BindingResult bindingResult) {
+        personValidator.validate(person, bindingResult);
 
-        return null;
+        if(bindingResult.hasErrors()) {
+            return "people/new";
+        }
+        peopleService.save(person);
+        return "redirect:/people";
     }
 
     @GetMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") int id) {
-        return null;
+        Optional<Person> person = peopleService.findById(id);
+        if(!person.isPresent()) {
+            model.addAttribute("id", id);
+            return "people/notFound";
+        }
+        model.addAttribute("person", person.get());
+        return "people/edit";
     }
 
     @PatchMapping("/{id}")
@@ -58,11 +76,22 @@ public class PeopleController {
                          BindingResult bindingResult,
                          @PathVariable("id") int id) {
 
-        return null;
+        if(bindingResult.hasErrors()) {
+            return "people/edit";
+        }
+        person.setId(id);
+        peopleService.save(person);
+        return "redirect:/people";
     }
 
     @DeleteMapping("/{id}")
-    public String delete(@PathVariable("id") int id) {
-        return null;
+    public String delete(@PathVariable("id") int id, Model model) {
+        Optional<Person> person = peopleService.findById(id);
+        if(!person.isPresent()) {
+            model.addAttribute("id", id);
+            return "people/notFound";
+        }
+        peopleService.delete(person.get());
+        return "redirect:/people";
     }
 }

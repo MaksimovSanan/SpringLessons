@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>notFound</title>
+</head>
+<body>
+Book with id: <th:block th:if="${id}">[[${id}]]</th:block> not found
+<br/>
+<form th:method="GET" th:action="@{/books/new}">
+  <input type="submit" value="Add new Book"/>
+</form>
+</body>
+</html>

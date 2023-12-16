@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Person</title>
+</head>
+<body>
+
+<p th:text="'Name: ' + ${book.getName()}">Book Name</p>
+<p th:text="'Year of Production: ' + ${book.getYearOfProduction()}">Year of Production</p>
+<p th:text="'id: ' + ${book.getId()}">Book Id</p>
+<!--<p th:text="Borrower: "-->
+<!--<a th:href="@{/people/{id}(id=${book.getBorrower().getId()})}">-->
+<!--</a>>Book Borrower-->
+<!--</p>-->
+<p>
+    Borrower:
+    <a th:href="@{/people/{id}(id=${book.getBorrower().getId()})}" th:text="${book.getBorrower().getName()}">Book Borrower</a>
+</p>
+<!--<a th:href="@{/people/{id}(id=${book.getBorrower().getId()})}" th:text="'Borrower: ' + ${book.getBorrower().getName()}">Book Borrower</a>-->
+
+<form th:method="GET" th:action="@{/books/{id}/edit(id=${book.getId()})}">
+    <input type="submit" value="Edit"/>
+</form>
+
+<br/>
+
+<form th:method="DELETE" th:action="@{/books/{id}(id=${book.getId()})}">
+    <input type="submit" value="DELETE"/>
+</form>
+</body>
+</html>

@@ -1,8 +1,11 @@
-DROP TABLE IF EXISTS Users;
+DROP TABLE IF EXISTS users;
 
 CREATE TABLE IF NOT EXISTS Users(
 id SERIAL PRIMARY KEY,
 name VARCHAR(50) NOT NULL,
 age INTEGER check (age > 0),
-email VARCHAR(255) UNIQUE
+email VARCHAR(255) UNIQUE,
+created_at TIMESTAMP,
+updated_at TIMESTAMP,
+created_who VARCHAR(50)
 );

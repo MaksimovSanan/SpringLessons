@@ -7,6 +7,7 @@ import ru.maksimov.RESTApp.models.Person;
 import ru.maksimov.RESTApp.repositories.PeopleRepository;
 import ru.maksimov.RESTApp.util.exceptions.PersonNotFoundException;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,6 +38,7 @@ public class PeopleService {
 
     @Transactional
     public void save(Person person) {
+        enrichPerson(person);
         peopleRepository.save(person);
     }
 
@@ -49,5 +51,11 @@ public class PeopleService {
     @Transactional
     public void delete(Person person) {
         peopleRepository.delete(person);
+    }
+
+    private void enrichPerson(Person person) {
+        person.setCreatedAt(LocalDateTime.now());
+        person.setUpdatedAt(LocalDateTime.now());
+        person.setCreatedWho("ADMIN");
     }
 }

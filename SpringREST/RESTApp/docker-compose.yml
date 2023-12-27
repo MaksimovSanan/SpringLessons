@@ -1,0 +1,25 @@
+version: '3.1'
+
+services:
+  postgres:
+    build:
+      context: ./postgres
+      dockerfile: Dockerfile.postgres
+    container_name: my_postgres_container
+    ports:
+      - "5432:5432"
+    networks:
+      - my_network
+
+  spring-boot-app:
+    build:
+      context: .
+      dockerfile: src/Dockerfile.restapp
+    container_name: my_rest_app_container
+    ports:
+      - "8080:8080"
+    networks:
+      - my_network
+
+networks:
+  my_network:

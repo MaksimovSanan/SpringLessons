@@ -55,7 +55,5 @@ public class PeopleService {
 
     private void enrichPerson(Person person) {
         person.setCreatedAt(LocalDateTime.now());
-        person.setUpdatedAt(LocalDateTime.now());
-        person.setCreatedWho("ADMIN");
     }
 }

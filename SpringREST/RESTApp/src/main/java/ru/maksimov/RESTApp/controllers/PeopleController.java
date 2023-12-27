@@ -45,7 +45,7 @@ public class PeopleController {
                                              BindingResult bindingResult) {
         if(bindingResult.hasErrors()) {
             StringBuilder errorMsg = new StringBuilder();
-            List< FieldError> errors = bindingResult.getFieldErrors();
+            List<FieldError> errors = bindingResult.getFieldErrors();
             for(FieldError error : errors) {
                 errorMsg.append(error.getField())
                         .append(" - ").append(error.getDefaultMessage())
@@ -61,6 +61,24 @@ public class PeopleController {
     public ResponseEntity<HttpStatus> delete(@PathVariable("id") int id) {
         Person person = peopleService.findById(id);
         peopleService.delete(person);
+        return ResponseEntity.ok(HttpStatus.OK);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<HttpStatus> update(@PathVariable("id") int id, @RequestBody @Valid PersonDTO personDTO,
+                                             BindingResult bindingResult) {
+        if(bindingResult.hasErrors()) {
+            StringBuilder errormsg = new StringBuilder();
+            List<FieldError> errors = bindingResult.getFieldErrors();
+            for(FieldError error: errors) {
+                errormsg.append(error.getField())
+                        .append(" - ").append(error.getDefaultMessage())
+                        .append(";");
+            }
+            throw new PersonNotCreatedException(errormsg.toString());
+        }
+        Person personToBeUpdated = peopleService.findById(id);
+        peopleService.update(id, convertToPerson(personDTO));
         return ResponseEntity.ok(HttpStatus.OK);
     }
 

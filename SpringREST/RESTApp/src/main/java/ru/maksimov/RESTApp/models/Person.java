@@ -30,11 +30,6 @@ public class Person {
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
-    @Column(name = "created_who")
-    @NotEmpty
-    private String createdWho;
 
     public Person(){}
 
@@ -85,19 +80,4 @@ public class Person {
         this.createdAt = createdAt;
     }
 
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    public String getCreatedWho() {
-        return createdWho;
-    }
-
-    public void setCreatedWho(String createdWho) {
-        this.createdWho = createdWho;
-    }
 }

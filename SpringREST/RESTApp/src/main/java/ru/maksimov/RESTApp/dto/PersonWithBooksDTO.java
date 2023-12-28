@@ -1,17 +1,14 @@
 package ru.maksimov.RESTApp.dto;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
+import java.util.List;
 
-public class PersonDTO {
+public class PersonWithBooksDTO {
 
     private int id;
     private String name;
     private Integer age;
     private String email;
-
+    private List<BookDTO> books;
 
     public int getId() {
         return id;
@@ -43,5 +40,13 @@ public class PersonDTO {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<BookDTO> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<BookDTO> books) {
+        this.books = books;
     }
 }

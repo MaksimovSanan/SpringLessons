@@ -5,12 +5,15 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
+import ru.maksimov.RESTApp.util.exceptions.BadRequestException;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
-@Table(name = "users")
+@Table(name = "persons")
 public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,10 +34,12 @@ public class Person {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
+    @OneToMany(mappedBy = "borrower")
+    private List<Book> books;
+
     public Person(){}
 
-    public Person(int id, String name, Integer age, String email) {
-        this.id = id;
+    public Person(String name, Integer age, String email) {
         this.name = name;
         this.age = age;
         this.email = email;
@@ -80,4 +85,25 @@ public class Person {
         this.createdAt = createdAt;
     }
 
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
+    }
+
+    public void addBook(Book book) {
+        if(books == null) {
+            books = new ArrayList<>();
+        }
+        books.add(book);
+    }
+
+    public void removeBook(Book book) {
+        if(book == null) {
+            throw new BadRequestException("Borrowers list of books is null");
+        }
+        books.remove(book);
+    }
 }

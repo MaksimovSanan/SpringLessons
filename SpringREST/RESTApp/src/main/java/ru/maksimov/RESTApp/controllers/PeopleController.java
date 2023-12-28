@@ -8,7 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+import ru.maksimov.RESTApp.dto.NewPersonDTO;
 import ru.maksimov.RESTApp.dto.PersonDTO;
+import ru.maksimov.RESTApp.dto.PersonWithBooksDTO;
 import ru.maksimov.RESTApp.models.Person;
 import ru.maksimov.RESTApp.services.PeopleService;
 import ru.maksimov.RESTApp.util.PersonErrorResponse;
@@ -36,12 +38,13 @@ public class PeopleController {
     }
 
     @GetMapping("/{id}")
-    public PersonDTO findOne(@PathVariable("id") int id) {
-        return convertToPersonDTO(peopleService.findById(id));
+    public PersonWithBooksDTO findOne(@PathVariable("id") int id) {
+        PersonWithBooksDTO person = convertToPersonWithBooksDTO(peopleService.findById(id));
+        return person;
     }
 
     @PostMapping
-    public ResponseEntity<HttpStatus> create(@RequestBody @Valid PersonDTO personDTO,
+    public ResponseEntity<HttpStatus> create(@RequestBody @Valid NewPersonDTO newPersonDTO,
                                              BindingResult bindingResult) {
         if(bindingResult.hasErrors()) {
             StringBuilder errorMsg = new StringBuilder();
@@ -53,8 +56,8 @@ public class PeopleController {
             }
             throw new PersonNotCreatedException(errorMsg.toString());
         }
-        peopleService.save(convertToPerson(personDTO));
-        return ResponseEntity.ok(HttpStatus.OK); // empty body status 200
+        peopleService.save(convertToPerson(newPersonDTO));
+        return ResponseEntity.ok(HttpStatus.CREATED); // empty body status 200
     }
 
     @DeleteMapping("/{id}")
@@ -65,20 +68,20 @@ public class PeopleController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<HttpStatus> update(@PathVariable("id") int id, @RequestBody @Valid PersonDTO personDTO,
+    public ResponseEntity<HttpStatus> update(@PathVariable("id") int id, @RequestBody @Valid NewPersonDTO newPersonDTO,
                                              BindingResult bindingResult) {
         if(bindingResult.hasErrors()) {
-            StringBuilder errormsg = new StringBuilder();
+            StringBuilder errorMsg = new StringBuilder();
             List<FieldError> errors = bindingResult.getFieldErrors();
             for(FieldError error: errors) {
-                errormsg.append(error.getField())
+                errorMsg.append(error.getField())
                         .append(" - ").append(error.getDefaultMessage())
                         .append(";");
             }
-            throw new PersonNotCreatedException(errormsg.toString());
+            throw new PersonNotCreatedException(errorMsg.toString());
         }
         Person personToBeUpdated = peopleService.findById(id);
-        peopleService.update(id, convertToPerson(personDTO));
+        peopleService.update(id, convertToPerson(newPersonDTO));
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
@@ -100,15 +103,19 @@ public class PeopleController {
         return new ResponseEntity<>(personErrorResponse, HttpStatus.BAD_REQUEST);
     }
 
-    private Person convertToPerson(PersonDTO personDTO) {
+    private Person convertToPerson(NewPersonDTO newPersonDTO) {
 
-        Person person = modelMapper.map(personDTO, Person.class);
+        Person person = modelMapper.map(newPersonDTO, Person.class);
 
         return person;
     }
 
     private PersonDTO convertToPersonDTO(Person person) {
         return modelMapper.map(person, PersonDTO.class);
+    }
+
+    private PersonWithBooksDTO convertToPersonWithBooksDTO(Person person) {
+        return modelMapper.map(person, PersonWithBooksDTO.class);
     }
 }
 

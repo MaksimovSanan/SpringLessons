@@ -52,6 +52,12 @@ docker-compose.yml
    3. POST http://localhost:8080/people
    4. DELETE http://localhost:8080/people/{id}
    5. PATCH http://localhost:8080/people/{id}
+   6. GET http://localhost:8080/books
+   7. GET http://localhost:8080/books/{id}
+   8. POST http://localhost:8080/books
+   9. DELETE http://localhost:8080/books/{id}
+   10. PATCH http://localhost:8080/books/{id}
+   11. POST http://localhost:8080/books/{id}/rent
 
 
 ## Настройка

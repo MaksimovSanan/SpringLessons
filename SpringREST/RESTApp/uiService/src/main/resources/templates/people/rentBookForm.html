@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rent a Book</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+  <h2 class="mt-5 mb-4">Rent a Book</h2>
+
+  <!-- Форма для аренды книги -->
+  <form th:action="@{'/people/' + ${person.id} + '/rent'}" method="post" th:object="${rentRequest}">
+
+
+  <div class="mb-3">
+      <label for="bookId" class="form-label">Select a Book to Rent:</label>
+      <select class="form-select" id="bookId" name="bookId" required th:field="*{bookId}">
+        <option th:each="bookItem : ${books}" th:value="${bookItem.id}" th:text="${bookItem.title + ' by ' + bookItem.author}"></option>
+      </select>
+    </div>
+
+    <input type="hidden" th:field="*{borrowerId}" th:value="${person.id}" />
+    <input type="hidden" th:field="*{code}" th:value="201" />
+    <button type="submit" class="btn btn-primary">Rent Book</button>
+  </form>
+
+
+</div>
+
+<!-- Bootstrap JS (optional) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

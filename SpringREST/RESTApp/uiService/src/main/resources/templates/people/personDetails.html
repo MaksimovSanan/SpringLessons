@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Person Details</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsVqOUiklvNElbyOvMq5qF0Fq9Vyvgp9O06tQIfY3k" crossorigin="anonymous">
+  <!-- Custom CSS -->
+  <style>
+    body {
+      padding: 20px;
+    }
+    table {
+      width: 100%;
+      margin-top: 20px;
+    }
+    th, td {
+      text-align: left;
+      padding: 8px;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2 class="mt-5 mb-4">Person Details</h2>
+
+  <!-- Кнопка возврата к списку всех пользователей -->
+  <a th:href="@{/people}" class="btn btn-secondary mb-3">Back to People List</a>
+
+  <div th:if="${person}">
+    <p>ID: <span th:text="${person.id}"></span></p>
+    <p>Name: <span th:text="${person.name}"></span></p>
+    <p>Age: <span th:text="${person.age}"></span></p>
+    <p>Email: <span th:text="${person.email}"></span></p>
+
+    <h3>Borrowed Books:</h3>
+    <table class="table">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Borrower</th>
+        <th>Action</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="book : ${person.books}">
+        <td th:text="${book.id}"></td>
+        <td th:text="${book.title}"></td>
+        <td th:text="${book.author}"></td>
+        <td th:text="${book.borrowerName}"></td>
+        <td>
+          <a th:href="@{/books/{id}(id=${book.id})}" class="btn btn-primary">View Book Details</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+    <!-- Кнопка для перехода на страницу аренды книги -->
+    <a th:href="@{'/people/' + ${person.id} + '/rent'}" class="btn btn-success">Rent a Book</a>
+
+    <!-- Форма для удаления пользователя -->
+    <form th:action="@{/people/{id}(id=${person.id})}" method="post" id="deleteForm" style="display: inline-block;">
+      <input type="hidden" name="_method" value="DELETE"/>
+      <button type="submit" class="btn btn-danger">
+        <i class="fas fa-trash"></i> Delete User
+      </button>
+    </form>
+  </div>
+</div>
+
+<!-- Bootstrap JS (optional) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

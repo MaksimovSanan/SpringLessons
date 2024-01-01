@@ -17,7 +17,7 @@ services:
       dockerfile: src/Dockerfile.restapp
     container_name: my_rest_app_container
     ports:
-      - "8080:8080"
+      - "8090:8090"
     networks:
       - my_network
 

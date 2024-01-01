@@ -5,7 +5,7 @@ FROM openjdk:17
 COPY target/RESTApp-0.0.1-SNAPSHOT.jar /app.jar
 
 # Откройте порт, на котором ваше приложение работает
-EXPOSE 8080
+EXPOSE 8090
 
 # Запустите приложение при старте контейнера
 ENTRYPOINT ["java", "-jar", "/app.jar"]

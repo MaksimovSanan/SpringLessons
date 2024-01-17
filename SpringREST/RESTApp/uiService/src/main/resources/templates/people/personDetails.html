@@ -52,13 +52,13 @@
       </tr>
       </thead>
       <tbody>
-      <tr th:each="book : ${person.books}">
-        <td th:text="${book.id}"></td>
-        <td th:text="${book.title}"></td>
-        <td th:text="${book.author}"></td>
-        <td th:text="${book.borrowerName}"></td>
+      <tr th:each="rentalObject : ${person.books}">
+        <td th:text="${rentalObject.id}"></td>
+        <td th:text="${rentalObject.title}"></td>
+        <td th:text="${rentalObject.author}"></td>
+        <td th:text="${rentalObject.borrowerName}"></td>
         <td>
-          <a th:href="@{/books/{id}(id=${book.id})}" class="btn btn-primary">View Book Details</a>
+          <a th:href="@{/books/{id}(id=${rentalObject.id})}" class="btn btn-primary">View Book Details</a>
         </td>
       </tr>
       </tbody>

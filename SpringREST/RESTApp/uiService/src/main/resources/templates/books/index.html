@@ -42,7 +42,7 @@
   <a href="/home" class="btn btn-secondary mt-3">Back to Home</a>
 
   <!-- Кнопка создания новой книги -->
-  <a href="/books/new-book-form" class="btn btn-success mt-3">Add New Book</a>
+  <a href="/books/new-rentalObject-form" class="btn btn-success mt-3">Add New Book</a>
 
   <table class="table mt-3">
     <thead>
@@ -55,13 +55,13 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="book : ${books}">
-      <td th:text="${book.id}"></td>
-      <td th:text="${book.title}"></td>
-      <td th:text="${book.author}"></td>
-      <td th:text="${book.borrowerName}"></td>
+    <tr th:each="rentalObject : ${books}">
+      <td th:text="${rentalObject.id}"></td>
+      <td th:text="${rentalObject.title}"></td>
+      <td th:text="${rentalObject.author}"></td>
+      <td th:text="${rentalObject.borrowerName}"></td>
       <td>
-        <a th:href="@{/books/{id}(id=${book.id})}" class="btn btn-primary">View Details</a>
+        <a th:href="@{/books/{id}(id=${rentalObject.id})}" class="btn btn-primary">View Details</a>
       </td>
     </tr>
     </tbody>

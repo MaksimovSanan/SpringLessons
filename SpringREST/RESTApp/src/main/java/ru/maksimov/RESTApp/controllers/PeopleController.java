@@ -8,9 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
-import ru.maksimov.RESTApp.dto.NewPersonDTO;
-import ru.maksimov.RESTApp.dto.PersonDTO;
-import ru.maksimov.RESTApp.dto.PersonWithBooksDTO;
+import ru.maksimov.RESTApp.dto.personDto.NewPersonDTO;
+import ru.maksimov.RESTApp.dto.personDto.PersonDTO;
+import ru.maksimov.RESTApp.dto.personDto.PersonWithBooksDTO;
 import ru.maksimov.RESTApp.models.Person;
 import ru.maksimov.RESTApp.services.PeopleService;
 import ru.maksimov.RESTApp.util.PersonErrorResponse;
@@ -38,8 +38,8 @@ public class PeopleController {
     }
 
     @GetMapping("/{id}")
-    public PersonWithBooksDTO findOne(@PathVariable("id") int id) {
-        PersonWithBooksDTO person = convertToPersonWithBooksDTO(peopleService.findById(id));
+    public PersonDTO findOne(@PathVariable("id") int id) {
+        PersonDTO person = convertToPersonDTO(peopleService.findById(id));
         return person;
     }
 

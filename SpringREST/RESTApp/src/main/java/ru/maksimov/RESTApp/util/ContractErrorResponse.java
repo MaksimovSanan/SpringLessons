@@ -5,11 +5,12 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class BookErrorResponse {
+public class ContractErrorResponse {
+
     private String message;
     private long timestamp;
 
-    public BookErrorResponse(String message, long timestamp) {
+    public ContractErrorResponse(String message, long timestamp) {
         this.message = message;
         this.timestamp = timestamp;
     }

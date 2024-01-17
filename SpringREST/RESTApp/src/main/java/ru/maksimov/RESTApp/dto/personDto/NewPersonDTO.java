@@ -1,10 +1,14 @@
-package ru.maksimov.RESTApp.dto;
+package ru.maksimov.RESTApp.dto.personDto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class NewPersonDTO {
 
     @NotEmpty(message = "Name should not be empty")
@@ -16,27 +20,4 @@ public class NewPersonDTO {
     @NotEmpty(message = "Email should not be empty")
     private String email;
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 }

@@ -1,5 +1,8 @@
 
-# Проект Spring Boot с PostgreSQL в контейнерах Docker
+# Rent Service RESTfull Template
+### In this project, as an example, for rental objects I used books 
+p.s: you can replace all {rental_object} with the real rental object you need
+## Проект Spring Boot с PostgreSQL в контейнерах Docker
 
 Этот проект демонстрирует настройку приложения Spring Boot с базой данных PostgreSQL, 
 каждое из которых работает в отдельных контейнерах Docker.
@@ -17,8 +20,7 @@ RESTApp/
 │   └── Dockerfile.restapp
 └── postgres/
     ├── Dockerfile.postgres
-    ├── schema.sql
-    └── data.sql
+    └── init.sql
 docker-compose.yml
 ```
 
@@ -47,17 +49,24 @@ docker-compose.yml
    ```
 
 3. Доступ к приложению Spring Boot:
-   1. GET http://localhost:8080/people
-   2. GET http://localhost:8080/people/{id}
-   3. POST http://localhost:8080/people
-   4. DELETE http://localhost:8080/people/{id}
-   5. PATCH http://localhost:8080/people/{id}
-   6. GET http://localhost:8080/books
-   7. GET http://localhost:8080/books/{id}
-   8. POST http://localhost:8080/books
-   9. DELETE http://localhost:8080/books/{id}
-   10. PATCH http://localhost:8080/books/{id}
-   11. POST http://localhost:8080/books/{id}/rent
+   1. People:
+      1. GET http://localhost:8080/people
+      2. GET http://localhost:8080/people/{id}
+      3. POST http://localhost:8080/people
+      4. DELETE http://localhost:8080/people/{id}
+      5. PATCH http://localhost:8080/people/{id}
+   2. Rental objects:
+      1. GET http://localhost:8080/rental_objects
+      2. GET http://localhost:8080/rental_objects/{id}
+      3. POST http://localhost:8080/rental_objects
+      4. DELETE http://localhost:8080/rental_objects/{id}
+      5. PATCH http://localhost:8080/rental_objects/{id}
+   3. Rent contracts:
+      1. GET http://localhost:8080/rent
+      2. GET http://localhost:8080/rent/{id}
+      3. POST http://localhost:8080/rent
+      4. DELETE http://localhost:8080/rent/{id}
+      5. PATCH http://localhost:8080/rent/{id}
 
 
 ## Настройка

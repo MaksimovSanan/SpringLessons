@@ -22,7 +22,7 @@
 <div class="container">
     <h2 class="mt-5 mb-4">New Book Form</h2>
 
-    <form th:action="@{/books/create}" method="post" th:object="${book}">
+    <form th:action="@{/books/create}" method="post" th:object="${rentalObject}">
         <div class="mb-3">
             <label for="title" class="form-label">Title:</label>
             <input type="text" class="form-control" id="title" th:field="*{title}" placeholder="Enter title">

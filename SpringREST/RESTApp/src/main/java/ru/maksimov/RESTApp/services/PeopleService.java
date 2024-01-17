@@ -3,10 +3,8 @@ package ru.maksimov.RESTApp.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.maksimov.RESTApp.models.Book;
 import ru.maksimov.RESTApp.models.Person;
 import ru.maksimov.RESTApp.repositories.PeopleRepository;
-import ru.maksimov.RESTApp.util.exceptions.BadRequestException;
 import ru.maksimov.RESTApp.util.exceptions.PersonNotFoundException;
 
 import java.time.LocalDateTime;
@@ -25,8 +23,7 @@ public class PeopleService {
     }
 
     public List<Person> findAll() {
-        List<Person> people = peopleRepository.findAll();
-        return people;
+        return peopleRepository.findAll();
     }
 
     public Person findById(int id) {
@@ -57,24 +54,5 @@ public class PeopleService {
 
     private void enrichPerson(Person person) {
         person.setCreatedAt(LocalDateTime.now());
-    }
-
-    public void addBookToPerson(Person person, Book book) {
-        if(book.getBorrower() != null) {
-            throw new BadRequestException("The book already has borrower");
-        }
-        person.addBook(book);
-        book.setBorrower(person);
-    }
-
-    public void removeBookFromPerson(Person person, Book book) {
-        if(book.getBorrower() == null) {
-            throw new BadRequestException("The book has no borrower");
-        }
-        if(!person.equals(book.getBorrower())) {
-            throw new BadRequestException("The book is assigned to another person");
-        }
-        person.removeBook(book);
-        book.setBorrower(null);
     }
 }

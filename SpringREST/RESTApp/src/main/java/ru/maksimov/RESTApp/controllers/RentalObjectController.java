@@ -9,44 +9,41 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
-import ru.maksimov.RESTApp.dto.BookDTO;
-import ru.maksimov.RESTApp.dto.NewBookDTO;
-import ru.maksimov.RESTApp.dto.RentRequestDTO;
-import ru.maksimov.RESTApp.models.Book;
-import ru.maksimov.RESTApp.models.Person;
-import ru.maksimov.RESTApp.services.BooksService;
+import ru.maksimov.RESTApp.dto.rentalObjectDto.BookDTO;
+import ru.maksimov.RESTApp.dto.rentalObjectDto.NewBookDTO;
+import ru.maksimov.RESTApp.models.RentalObject;
+import ru.maksimov.RESTApp.services.RentalObjectService;
 import ru.maksimov.RESTApp.services.PeopleService;
 import ru.maksimov.RESTApp.util.BookErrorResponse;
 import ru.maksimov.RESTApp.util.PersonErrorResponse;
-import ru.maksimov.RESTApp.util.RentCodes;
 import ru.maksimov.RESTApp.util.exceptions.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/books")
-public class BooksController {
+@RequestMapping("/rental_objects")
+public class RentalObjectController {
 
-    private final BooksService booksService;
+    private final RentalObjectService rentalObjectService;
     private final PeopleService peopleService;
     private final ModelMapper modelMapper;
 
     @Autowired
-    public BooksController(BooksService booksService, PeopleService peopleService, ModelMapper modelMapper) {
-        this.booksService = booksService;
+    public RentalObjectController(RentalObjectService rentalObjectService, PeopleService peopleService, ModelMapper modelMapper) {
+        this.rentalObjectService = rentalObjectService;
         this.peopleService = peopleService;
         this.modelMapper = modelMapper;
     }
 
     @GetMapping
     public List<BookDTO> getBooks() {
-        return booksService.findAll().stream().map(this::convertToBookDTO).collect(Collectors.toList());
+        return rentalObjectService.findAll().stream().map(this::convertToBookDTO).collect(Collectors.toList());
     }
 
     @GetMapping("/{id}")
     public BookDTO findOne(@PathVariable("id") int id) {
-        return convertToBookDTO(booksService.findById(id));
+        return convertToBookDTO(rentalObjectService.findById(id));
     }
 
     @Transactional
@@ -63,16 +60,16 @@ public class BooksController {
                 throw new BookNotCreatedException(errorMsg.toString());
             }
         }
-        Book book = convertToBook(newBookDTO);
-        booksService.save(book);
+        RentalObject rentalObject = convertToBook(newBookDTO);
+        rentalObjectService.save(rentalObject);
         return ResponseEntity.ok(HttpStatus.CREATED);
     }
 
     @Transactional
     @DeleteMapping("/{id}")
     public ResponseEntity<HttpStatus> delete(@PathVariable("id") int id) {
-        Book book = booksService.findById(id);
-        booksService.delete(book);
+        RentalObject rentalObject = rentalObjectService.findById(id);
+        rentalObjectService.delete(rentalObject);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
@@ -91,55 +88,22 @@ public class BooksController {
                 throw new BookNotCreatedException(errorMsg.toString());
             }
         }
-        Book bookToBeUpdated = booksService.findById(id);
-        bookToBeUpdated.setTitle(newBookDTO.getTitle());
-        bookToBeUpdated.setAuthor(newBookDTO.getAuthor());
-        booksService.save(bookToBeUpdated);
+        RentalObject rentalObjectToBeUpdated = rentalObjectService.findById(id);
+        rentalObjectToBeUpdated.setTitle(newBookDTO.getTitle());
+        rentalObjectToBeUpdated.setAuthor(newBookDTO.getAuthor());
+        rentalObjectToBeUpdated.setQuantity(newBookDTO.getQuantity());
+        rentalObjectService.save(rentalObjectToBeUpdated);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-    @Transactional
-    @PostMapping("/{id}/rent")
-    public ResponseEntity<HttpStatus> rentBook(@PathVariable("id") int id,
-                                               @RequestBody @Valid RentRequestDTO rentRequestDTO,
-                                               BindingResult bindingResult) {
+    private BookDTO convertToBookDTO(RentalObject rentalObject) {
+        BookDTO bookDTO = modelMapper.map(rentalObject, BookDTO.class);
 
-        if(bindingResult.hasErrors()) {
-            StringBuilder errorMsg = new StringBuilder();
-            List<FieldError> errors = bindingResult.getFieldErrors();
-            for(FieldError error: errors) {
-                errorMsg.append(error.getField())
-                        .append(" - ").append(error.getDefaultMessage())
-                        .append(";");
-                throw new BadRequestException(errorMsg.toString());
-            }
-        }
-        Integer code = rentRequestDTO.getCode();
-
-        Book book = booksService.findById(id);
-        Person person = peopleService.findById(rentRequestDTO.getBorrowerId());
-        if(code.equals(RentCodes.borrowBook)) {
-            peopleService.addBookToPerson(person, book);
-        }
-        else if(code.equals(RentCodes.returnBook) ) {
-            peopleService.removeBookFromPerson(person, book);
-        }
-        return ResponseEntity.ok(HttpStatus.OK);
-    }
-
-    private BookDTO convertToBookDTO(Book book) {
-        BookDTO bookDTO = modelMapper.map(book, BookDTO.class);
-
-        // OBALDET MAPPER DELAET ETO SAM
-//        if(book.getBorrower() != null) {
-//            bookDTO.setBorrowerId(book.getBorrower().getId());
-//            bookDTO.setBorrowerName(book.getBorrower().getName());
-//        }
         return bookDTO;
     }
 
-    private Book convertToBook(NewBookDTO newBookDTO) {
-        return modelMapper.map(newBookDTO, Book.class);
+    private RentalObject convertToBook(NewBookDTO newBookDTO) {
+        return modelMapper.map(newBookDTO, RentalObject.class);
     }
 
     @ExceptionHandler

@@ -1,5 +1,6 @@
 package ru.maksimov.ItemsService.services;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,6 +33,7 @@ public class RentContractsService {
     public void save(RentContract rentContract) {
         enrichContract(rentContract);
         rentContractsRepository.save(rentContract);
+
     }
 
 //    @Transactional

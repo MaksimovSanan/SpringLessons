@@ -2,7 +2,7 @@
 FROM postgres:latest
 
 # Установка переменных окружения для базы данных
-ENV POSTGRES_DB=user_service_db
+ENV POSTGRES_DB=users_service_db
 ENV POSTGRES_USER=postgres
 ENV POSTGRES_PASSWORD=postgres
 

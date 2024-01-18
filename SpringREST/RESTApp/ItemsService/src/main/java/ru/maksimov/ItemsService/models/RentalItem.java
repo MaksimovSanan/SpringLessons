@@ -44,4 +44,8 @@ public class RentalItem {
         this.title = title;
         this.description = description;
     }
+
+    public RentalItem(Integer id) {
+        this.id = id;
+    }
 }

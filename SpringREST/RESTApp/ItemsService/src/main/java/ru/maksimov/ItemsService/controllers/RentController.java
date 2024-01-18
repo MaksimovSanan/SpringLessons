@@ -1,5 +1,6 @@
 package ru.maksimov.ItemsService.controllers;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import ru.maksimov.ItemsService.util.exceptions.ContractNotFoundException;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
 
 @RestController
 @RequestMapping("/rent")
@@ -57,7 +59,8 @@ public class RentController {
             }
             throw new ContractNotCreatedException(errorMsg.toString());
         }
-        rentContractsService.save(modelMapper.map(newRentContractDTO, RentContract.class));
+        RentContract rentContract = modelMapper.map(newRentContractDTO, RentContract.class);
+        rentContractsService.save(rentContract);
         return ResponseEntity.ok(HttpStatus.CREATED); // empty body status 200
     }
 
@@ -120,5 +123,15 @@ public class RentController {
                 System.currentTimeMillis()
         );
         return new ResponseEntity<>(contractErrorResponse, HttpStatus.NOT_FOUND); // NOT_FOUND - 404
+    }
+
+    @ExceptionHandler
+    private ResponseEntity<ContractErrorResponse> handleException(EntityNotFoundException entityNotFoundException) {
+        // TODO make it better + check borrowerId
+        ContractErrorResponse contractErrorResponse = new ContractErrorResponse(
+                entityNotFoundException.getMessage(),
+                System.currentTimeMillis()
+        );
+        return new ResponseEntity<>(contractErrorResponse, HttpStatus.BAD_REQUEST);
     }
 }

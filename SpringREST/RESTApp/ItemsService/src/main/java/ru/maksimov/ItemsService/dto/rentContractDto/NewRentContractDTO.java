@@ -1,5 +1,6 @@
 package ru.maksimov.ItemsService.dto.rentContractDto;
 
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,7 +18,7 @@ public class NewRentContractDTO {
     @NotNull(message = "Borrower ID cannot be empty")
     private Integer borrowerId;
 
-    @NotNull(message = "Field reserved_to cannot be empty")
+    @NotNull(message = "Field reservedTo cannot be empty")
     private LocalDateTime reservedTo;
 
     public NewRentContractDTO() {

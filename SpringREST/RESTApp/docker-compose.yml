@@ -25,11 +25,32 @@ services:
     build:
       context: ./UsersService
       dockerfile: Dockerfile.UsersService
-    container_name: user_service_container
+    container_name: users_service_container
     ports:
-      - "8090:8090"
+      - "8095:8095"
     networks:
       - my_network
+
+
+  items_service_postgresql:
+    build:
+      context: ./ItemsServicePostgreSQL
+      dockerfile: Dockerfile.ItemsServicePostgreSQL
+    container_name: items_service_postgresql_container
+    ports:
+      - "5433:5432"  # Используйте 5433:5432, чтобы экспортировать порт 5432 контейнера
+    networks:
+      - my_network
+
+  items_service:
+      build:
+        context: ./ItemsService
+        dockerfile: Dockerfile.ItemsService
+      container_name: items_service_container
+      ports:
+        - "8096:8096"
+      networks:
+        - my_network
 
 
 #  spring-boot-app:

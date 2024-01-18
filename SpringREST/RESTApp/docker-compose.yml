@@ -1,25 +1,46 @@
 version: '3.1'
 
 services:
-  postgres:
+#  postgres:
+#    build:
+#      context: ./postgres
+#      dockerfile: Dockerfile.postgres
+#    container_name: my_postgres_container
+#    ports:
+#      - "5432:5432"
+#    networks:
+#      - my_network
+
+  users_service_postgresql:
     build:
-      context: ./postgres
-      dockerfile: Dockerfile.postgres
-    container_name: my_postgres_container
+      context: ./UsersServicePostgreSQL
+      dockerfile: Dockerfile.UsersServicePostgreSQL
+    container_name: users_service_postgresql_container
     ports:
       - "5432:5432"
     networks:
       - my_network
 
-  spring-boot-app:
+  users_service:
     build:
-      context: .
-      dockerfile: src/Dockerfile.restapp
-    container_name: my_rest_app_container
+      context: ./UsersService
+      dockerfile: Dockerfile.UsersService
+    container_name: user_service_container
     ports:
       - "8090:8090"
     networks:
       - my_network
+
+
+#  spring-boot-app:
+#    build:
+#      context: .
+#      dockerfile: src/Dockerfile.restapp
+#    container_name: my_rest_app_container
+#    ports:
+#      - "8090:8090"
+#    networks:
+#      - my_network
 
 networks:
   my_network:

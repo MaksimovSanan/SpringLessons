@@ -105,10 +105,10 @@ RESTApp/
 
 ### Приложение Spring Boot
 
-В файле `src/main/resources/application.properties` вы можете настроить параметры подключения к базе данных PostgreSQL:
+В файле `*/src/main/resources/application.properties` вы можете настроить параметры подключения к базе данных PostgreSQL:
 
 ```properties
-spring.datasource.url=jdbc:postgresql://my_postgres_container:5432/rest_app
+spring.datasource.url=jdbc:postgresql://{postgres_container}:{5432}/{db_name}
 spring.datasource.username=postgres
 spring.datasource.password=postgres
 spring.datasource.driver-class-name=org.postgresql.Driver
@@ -117,10 +117,10 @@ spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
 
 ### База данных PostgreSQL
 
-В файле `postgres/Dockerfile.postgres` вы можете установить переменные среды для PostgreSQL, такие как имя базы данных, пользователя и пароль:
+В файле `**/**PostgreSQL/Dockerfile.**` вы можете установить переменные среды для PostgreSQL, такие как имя базы данных, пользователя и пароль:
 
 ```Dockerfile
-ENV POSTGRES_DB=rest_app
+ENV POSTGRES_DB={db_name}
 ENV POSTGRES_USER=myuser
 ENV POSTGRES_PASSWORD=mypassword
 ```
@@ -128,4 +128,5 @@ ENV POSTGRES_PASSWORD=mypassword
 ## Дополнительные замечания
 
 - Приложение Spring Boot доступно по адресу [http://localhost:8080](http://localhost:8080).
-- База данных PostgreSQL доступна по адресу [http://localhost:5432](http://localhost:5432).
+- База данных PostgreSQL для UsersService доступна по адресу [http://localhost:5432](http://localhost:5432).
+- - База данных PostgreSQL для ItemsService доступна по адресу [http://localhost:5433](http://localhost:5433).

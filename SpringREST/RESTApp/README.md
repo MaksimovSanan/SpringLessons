@@ -60,7 +60,7 @@ RESTApp/
 
 ## Schema DB
 
-![SchemaDB](misc/images/Schema DB.png)
+![SchemaDB](misc/images/SchemaDB.png)
 
 
 ## Начало работы

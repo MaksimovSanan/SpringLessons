@@ -13,7 +13,7 @@ services:
 
   users_service_postgresql:
     build:
-      context: ./UsersServicePostgreSQL
+      context: UsersService/UsersServicePostgreSQL
       dockerfile: Dockerfile.UsersServicePostgreSQL
     container_name: users_service_postgresql_container
     ports:
@@ -34,7 +34,7 @@ services:
 
   items_service_postgresql:
     build:
-      context: ./ItemsServicePostgreSQL
+      context: ItemsService/ItemsServicePostgreSQL
       dockerfile: Dockerfile.ItemsServicePostgreSQL
     container_name: items_service_postgresql_container
     ports:

@@ -14,22 +14,54 @@ p.s: you can replace all {rental_object} with the real rental object you need
 
 ```plaintext
 RESTApp/
-├── src/
-│   ├── main/
-│   │   ├── java/
-│   └── Dockerfile.restapp
-└── postgres/
-    ├── Dockerfile.postgres
-    └── init.sql
-docker-compose.yml
+│
+├── UsersService/
+│   ├── src/
+│   │   └── main/
+│   │       └── java/
+│   ├── Dockerfile.UsersService
+│   │
+│   └── UsersServicePostgreSQL/
+│       ├── Dockerfile.UsersServicePostgreSQL
+│       └── init.sql
+│
+├── ItemsService/
+│   ├── src/
+│   │   └── main/
+│   │       └── java/
+│   ├── Dockerfile.ItemssService
+│   │
+│   └── ItemsServicePostgreSQL/
+│       ├── Dockerfile.ItemsServicePostgreSQL
+│       └── init.sql
+│
+└── docker-compose.yml
 ```
 
-- `src/`: Содержит исходный код приложения Spring Boot.
-- `src/Dockerfile.spring-boot`: Dockerfile для создания образа приложения Spring Boot.
-- `postgres/`: Содержит файлы инициализации базы данных PostgreSQL.
-- `postgres/Dockerfile.postgres`: Dockerfile для создания образа PostgreSQL.
-- `postgres/init.sql`: SQL-скрипт для создания схемы базы данных и вставки начальных данных.
+- `UsersService/src/`: Содержит исходный код микросервиса для работы с пользователями.
+- `UsersService/Dockerfile.UsersService`: Dockerfile для создания образа UsersService.
+- `UsersService/UsersServicePostgreSQL/`: Содержит файлы инициализации базы данных PostgreSQL для UsersService.
+- `UsersService/UsersServicePostgreSQL/Dockerfile.UsersServicePostgreSQL`: Dockerfile для создания образа PostgreSQL.
+- `UsersService/UsersServicePostgreSQL/init.sql`: SQL-скрипт для создания схемы базы данных и вставки начальных данных.
+- `ItemsService/src/`: Содержит исходный код микросервиса для работы с товарами.
+- `itemsService/Dockerfile.ItemsService`: Dockerfile для создания образа ItemsService.
+- `ItemsService/ItemsServicePostgreSQL/`: Содержит файлы инициализации базы данных PostgreSQL для ItemsService.
+- `ItemsService/ItemsServicePostgreSQL/Dockerfile.ItemsServicePostgreSQL`: Dockerfile для создания образа PostgreSQL.
+- `ItemsService/ItemsServicePostgreSQL/init.sql`: SQL-скрипт для создания схемы базы данных и вставки начальных данных.
 - `docker-compose.yml`: Файл конфигурации Docker Compose для оркестрации развертывания обоих контейнеров.
+
+## UsersService
+
+![UsersService](misc/images/UsersService.png)
+
+## ItemsService
+
+![ItemsService](misc/images/ItemsService.png)
+
+## Schema DB
+
+![SchemaDB](misc/images/Schema DB.png)
+
 
 ## Начало работы
 
@@ -49,24 +81,24 @@ docker-compose.yml
    ```
 
 3. Доступ к приложению Spring Boot:
-   1. People:
-      1. GET http://localhost:8080/people
-      2. GET http://localhost:8080/people/{id}
-      3. POST http://localhost:8080/people
-      4. DELETE http://localhost:8080/people/{id}
-      5. PATCH http://localhost:8080/people/{id}
-   2. Rental objects:
-      1. GET http://localhost:8080/rental_objects
-      2. GET http://localhost:8080/rental_objects/{id}
-      3. POST http://localhost:8080/rental_objects
-      4. DELETE http://localhost:8080/rental_objects/{id}
-      5. PATCH http://localhost:8080/rental_objects/{id}
+   1. Users:
+      1. GET http://localhost:8095/users
+      2. GET http://localhost:8095/users/{id}
+      3. POST http://localhost:8095/users
+      4. DELETE http://localhost:8095/users/{id}
+      5. PATCH http://localhost:8095/users/{id}
+   2. Rental items:
+      1. GET http://localhost:8096/items
+      2. GET http://localhost:8096/items/{id}
+      3. POST http://localhost:8096/items
+      4. DELETE http://localhost:8096/items/{id}
+      5. PATCH http://localhost:8096/items/{id}
    3. Rent contracts:
-      1. GET http://localhost:8080/rent
-      2. GET http://localhost:8080/rent/{id}
-      3. POST http://localhost:8080/rent
-      4. DELETE http://localhost:8080/rent/{id}
-      5. PATCH http://localhost:8080/rent/{id}
+      1. GET http://localhost:8096/rent
+      2. GET http://localhost:8096/rent/{id}
+      3. POST http://localhost:8096/rent
+      4. DELETE http://localhost:8096/rent/{id}
+      5. PATCH http://localhost:8096/rent/{id}
 
 
 ## Настройка

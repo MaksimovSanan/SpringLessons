@@ -1,6 +1,7 @@
 package ru.maksimov.UsersService.controllers;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,6 +14,7 @@ import ru.maksimov.UsersService.dto.usersDto.UserDTO;
 import ru.maksimov.UsersService.models.User;
 import ru.maksimov.UsersService.services.UsersService;
 import ru.maksimov.UsersService.util.UserErrorResponse;
+import ru.maksimov.UsersService.util.exceptions.EmailIsPresentException;
 import ru.maksimov.UsersService.util.exceptions.UserNotCreatedException;
 import ru.maksimov.UsersService.util.exceptions.UserNotFoundException;
 
@@ -96,6 +98,15 @@ public class UsersController {
     private ResponseEntity<UserErrorResponse> handleException(UserNotCreatedException userNotCreatedException) {
         UserErrorResponse userErrorResponse = new UserErrorResponse(
                 userNotCreatedException.getMessage(),
+                System.currentTimeMillis()
+        );
+        return new ResponseEntity<>(userErrorResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler
+    private ResponseEntity<UserErrorResponse> handleException(EmailIsPresentException emailIsPresentException) {
+        UserErrorResponse userErrorResponse = new UserErrorResponse(
+                "Email is present",
                 System.currentTimeMillis()
         );
         return new ResponseEntity<>(userErrorResponse, HttpStatus.BAD_REQUEST);

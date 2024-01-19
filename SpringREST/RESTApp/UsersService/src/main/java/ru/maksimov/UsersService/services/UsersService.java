@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.maksimov.UsersService.models.User;
 import ru.maksimov.UsersService.repositories.UsersRepository;
+import ru.maksimov.UsersService.util.exceptions.EmailIsPresentException;
 import ru.maksimov.UsersService.util.exceptions.UserNotFoundException;
 
 import java.time.LocalDateTime;
@@ -37,6 +38,9 @@ public class UsersService {
 
     @Transactional
     public void save(User user) {
+        if(usersRepository.findByEmail(user.getEmail()).isPresent()){
+            throw new EmailIsPresentException();
+        }
         enrichUser(user);
         usersRepository.save(user);
     }
@@ -44,6 +48,10 @@ public class UsersService {
     @Transactional
     public void update(int id, User user) {
         user.setId(id);
+        Optional<User> tmpUser = usersRepository.findByEmail(user.getEmail());
+        if(tmpUser.isPresent() && tmpUser.get().getId() != id){
+            throw new EmailIsPresentException();
+        }
         usersRepository.save(user);
     }
 

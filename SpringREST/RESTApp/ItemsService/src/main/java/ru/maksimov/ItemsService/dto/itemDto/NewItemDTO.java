@@ -1,4 +1,4 @@
-package ru.maksimov.ItemsService.dto.rentalObjectDto;
+package ru.maksimov.ItemsService.dto.itemDto;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;

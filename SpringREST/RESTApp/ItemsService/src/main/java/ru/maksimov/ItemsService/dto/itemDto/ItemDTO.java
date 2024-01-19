@@ -1,6 +1,5 @@
-package ru.maksimov.ItemsService.dto.rentalObjectDto;
+package ru.maksimov.ItemsService.dto.itemDto;
 
-import jakarta.persistence.Column;
 import lombok.Getter;
 import lombok.Setter;
 

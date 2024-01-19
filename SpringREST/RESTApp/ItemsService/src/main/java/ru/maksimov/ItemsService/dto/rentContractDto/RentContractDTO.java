@@ -1,12 +1,8 @@
 package ru.maksimov.ItemsService.dto.rentContractDto;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
-import ru.maksimov.ItemsService.dto.rentalObjectDto.ItemDTO;
-import ru.maksimov.ItemsService.models.RentalItem;
+import ru.maksimov.ItemsService.dto.itemDto.ItemDTO;
 
 import java.time.LocalDateTime;
 

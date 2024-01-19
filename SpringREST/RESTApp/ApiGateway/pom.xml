@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>ru.maksimov</groupId>
-	<artifactId>ApiService</artifactId>
+	<artifactId>ApiGateway</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>ApiService</name>
-	<description>ApiService for RentService</description>
+	<name>ApiGateway</name>
+	<description>ApiGateway for RentService</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>

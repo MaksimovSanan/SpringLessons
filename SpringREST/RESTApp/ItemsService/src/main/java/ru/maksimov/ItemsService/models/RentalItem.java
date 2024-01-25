@@ -21,6 +21,9 @@ public class RentalItem {
     @Column(name = "owner_id")
     private Integer ownerId;
 
+    @Column(name = "owner_name")
+    private String ownerName;
+
     @Column(name = "title")
     private String title;
 

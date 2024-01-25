@@ -37,8 +37,29 @@ public class RentalItemsController {
     }
 
     @GetMapping
-    public List<ItemDTO> getItems() {
-        return rentalItemsService.findAll().stream().map(this::convertToItemDTO).collect(Collectors.toList());
+    public List<ItemDTO> getItems(@RequestParam(name = "ownerId", required = false) Integer ownerId,
+                                  @RequestParam(name = "status", required = false) Integer status) {
+        if (ownerId != null && status != null) {
+            return rentalItemsService.findByOwnerIdAndStatus(ownerId, status)
+                    .stream()
+                    .map(this::convertToItemDTO)
+                    .collect(Collectors.toList());
+        } else if (ownerId != null) {
+            return rentalItemsService.findByOwnerId(ownerId)
+                    .stream()
+                    .map(this::convertToItemDTO)
+                    .collect(Collectors.toList());
+        } else if (status != null) {
+            return rentalItemsService.findByStatus(status)
+                    .stream()
+                    .map(this::convertToItemDTO)
+                    .collect(Collectors.toList());
+        } else {
+            return rentalItemsService.findAll()
+                    .stream()
+                    .map(this::convertToItemDTO)
+                    .collect(Collectors.toList());
+        }
     }
 
     @GetMapping("/{id}")
@@ -104,7 +125,6 @@ public class RentalItemsController {
     }
 
     private ItemDTO convertToItemDTO(RentalItem rentalItem) {
-
         return modelMapper.map(rentalItem, ItemDTO.class);
     }
 

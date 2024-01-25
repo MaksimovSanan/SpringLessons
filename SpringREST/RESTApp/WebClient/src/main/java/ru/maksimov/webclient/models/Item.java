@@ -1,11 +1,14 @@
-package ru.maksimov.ItemsService.dto.itemDto;
+package ru.maksimov.webclient.models;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
+
+@Data
 @Getter
 @Setter
-public class ItemDTO {
+@NoArgsConstructor
+@AllArgsConstructor
+public class Item {
     private int id;
 
     private Integer ownerId;

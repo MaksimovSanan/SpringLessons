@@ -29,6 +29,18 @@ public class RentalItemsService {
         return rentalItemsRepository.findById(id).orElseThrow(ItemNotFoundException::new);
     }
 
+    public List<RentalItem> findByOwnerIdAndStatus(Integer ownerId, Integer status) {
+        return rentalItemsRepository.findByOwnerIdAndStatus(ownerId, status);
+    }
+
+    public List<RentalItem> findByOwnerId(Integer ownerId) {
+        return rentalItemsRepository.findByOwnerId(ownerId);
+    }
+
+    public List<RentalItem> findByStatus(Integer status) {
+        return rentalItemsRepository.findByStatus(status);
+    }
+
     @Transactional
     public void save(RentalItem rentalItem) {
         enrichRentalItem(rentalItem);

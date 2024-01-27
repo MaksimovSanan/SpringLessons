@@ -71,6 +71,7 @@ public class RentalItemsController {
     @PostMapping
     public ResponseEntity<HttpStatus> create(@RequestBody @Valid NewItemDTO newItemDTO,
                                              BindingResult bindingResult) {
+        System.out.println(newItemDTO);
         if(bindingResult.hasErrors()) {
             StringBuilder errorMsg = new StringBuilder();
             List<FieldError> errors = bindingResult.getFieldErrors();

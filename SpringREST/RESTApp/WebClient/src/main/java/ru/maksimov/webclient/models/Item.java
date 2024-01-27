@@ -9,7 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Item {
-    private int id;
+    private Integer id;
 
     private Integer ownerId;
 

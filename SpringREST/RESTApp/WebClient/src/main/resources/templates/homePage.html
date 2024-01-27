@@ -37,6 +37,37 @@
         </tr>
         </tbody>
     </table>
+
+    <!-- Кнопка для добавления нового Item -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addItemModal">
+        Add New Item
+    </button>
+</div>
+
+<!-- Модальное окно для добавления нового Item -->
+<div class="modal fade" id="addItemModal" tabindex="-1" role="dialog" aria-labelledby="addItemModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addItemModalLabel">Add New Item</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Форма для добавления нового Item -->
+                <form action="/addItem" method="post">
+                    <!-- Здесь добавьте поля для нового Item -->
+                    <!-- Пример: -->
+                    <input type="text" name="title" placeholder="Title" required>
+                    <input type="text" name="description" placeholder="Description" required>
+                    <input type="number" name="costPerHour" placeholder="Cost Per Hour" required>
+                    <input type="number" name="costPerDay" placeholder="Cost Per Day" required>
+                    <button type="submit" class="btn btn-primary">Add Item</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 <!-- Bootstrap JS and jQuery (required for Bootstrap) -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

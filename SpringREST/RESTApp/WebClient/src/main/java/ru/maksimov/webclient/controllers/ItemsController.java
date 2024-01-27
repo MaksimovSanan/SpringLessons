@@ -1,11 +1,12 @@
 package ru.maksimov.webclient.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import ru.maksimov.webclient.models.Item;
 
@@ -24,5 +25,34 @@ public class ItemsController {
         Item item = restTemplate.getForObject("http://ITEMSSERVICE/items/" + id, Item.class);
         model.addAttribute("item", item);
         return "items/itemInfo";
+    }
+
+    @DeleteMapping("/{id}")
+    public String deleteItem(@PathVariable("id") int id) {
+        restTemplate.delete("http://ITEMSSERVICE/items/" + id);
+        return "redirect:/";
+    }
+
+    @GetMapping("/{id}/edit")
+    public String editPage(@PathVariable("id") int id, Model model) {
+        Item item = restTemplate.getForObject("http://ITEMSSERVICE/items/" + id, Item.class);
+        System.out.println(item);
+        model.addAttribute("item", item);
+        return "items/editPage";
+    }
+
+    @PatchMapping("/{id}")
+    public String updateItem(@PathVariable("id") int id, @ModelAttribute Item item){
+        System.out.println(item);
+
+        // Создайте HttpHeaders для установки заголовков запроса
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        // Создайте HttpEntity, чтобы установить тело запроса и заголовки
+        HttpEntity<Item> requestEntity = new HttpEntity<>(item, headers);
+
+        restTemplate.patchForObject("http://ITEMSSERVICE/items/" + id, requestEntity, Void.class);
+        return "redirect:/";
     }
 }

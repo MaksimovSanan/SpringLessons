@@ -30,7 +30,7 @@ public class ItemsController {
     @DeleteMapping("/{id}")
     public String deleteItem(@PathVariable("id") int id) {
         restTemplate.delete("http://ITEMSSERVICE/items/" + id);
-        return "redirect:/";
+        return "redirect:http://localhost:8080/";
     }
 
     @GetMapping("/{id}/edit")
@@ -45,14 +45,12 @@ public class ItemsController {
     public String updateItem(@PathVariable("id") int id, @ModelAttribute Item item){
         System.out.println(item);
 
-        // Создайте HttpHeaders для установки заголовков запроса
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
-        // Создайте HttpEntity, чтобы установить тело запроса и заголовки
         HttpEntity<Item> requestEntity = new HttpEntity<>(item, headers);
 
         restTemplate.patchForObject("http://ITEMSSERVICE/items/" + id, requestEntity, Void.class);
-        return "redirect:/";
+        return "redirect:http://localhost:8080/";
     }
 }

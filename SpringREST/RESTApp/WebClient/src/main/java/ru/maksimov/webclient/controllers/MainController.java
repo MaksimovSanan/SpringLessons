@@ -35,8 +35,6 @@ public class MainController {
 
     @PostMapping("/addItem")
     public String addItem(@ModelAttribute Item newItem) {
-        // Здесь можно добавить логику для сохранения нового Item в базе данных
-        // Например, вызов сервиса для сохранения Item
 
         System.out.println(newItem);
 
@@ -46,20 +44,16 @@ public class MainController {
         newItem.setId(null);
         System.out.println(newItem);
 
-        // Укажите URL микросервиса, куда будет отправлен запрос
         String addItemUrl = "http://ITEMSSERVICE/items";
 
 
-        // Создайте HttpHeaders для установки заголовков запроса
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
-        // Создайте HttpEntity, чтобы установить тело запроса и заголовки
         HttpEntity<Item> requestEntity = new HttpEntity<>(newItem, headers);
 
         ResponseEntity<Void> responseEntity = restTemplate.postForEntity(addItemUrl, requestEntity, Void.class);
 
-        // После успешного сохранения Item можно перенаправить пользователя на домашнюю страницу или на страницу с подтверждением добавления
-        return "redirect:/"; // Перенаправляем пользователя на главную страницу
+        return "redirect:http://localhost:8080/"; // Перенаправляем пользователя на главную страницу
     }
 }

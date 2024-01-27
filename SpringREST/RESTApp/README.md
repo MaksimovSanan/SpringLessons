@@ -1,10 +1,9 @@
 
-# Rent Service RESTfull Template
-### In this project, as an example, for rental objects I used books 
-p.s: you can replace all {rental_object} with the real rental object you need
-## Проект Spring Boot с PostgreSQL в контейнерах Docker
+# Spring Cloud Rent Service RESTfull
+## Микросервисное приложение Spring Boot с PostgreSQL в контейнерах Docker
 
-Этот проект демонстрирует настройку приложения Spring Boot с базой данных PostgreSQL, 
+Этот проект демонстрирует настройку приложения Spring Boot с использованием Spring Cloud, двумя микросервисами
+с собственными базами данных PostgreSQL, 
 каждое из которых работает в отдельных контейнерах Docker.
 Это достигается с использованием Docker Compose для оркестрации развертывания контейнеров.
 
@@ -15,10 +14,32 @@ p.s: you can replace all {rental_object} with the real rental object you need
 ```plaintext
 RESTApp/
 │
+├── EurekaServer
+│   ├── src/
+│   │   └── main/
+│   │       ├── java/
+│   │       └── resources/
+│   └── Dockerfile.EurekaServer
+│
+├── APIGateway
+│   ├── src/
+│   │   └── main/
+│   │       ├── java/
+│   │       └── resources/
+│   └── Dockerfile.APIGateway
+│
+├── WebClient
+│   ├── src/
+│   │   └── main/
+│   │       ├── java/
+│   │       └── resources/
+│   └── Dockerfile.WebClient
+│
 ├── UsersService/
 │   ├── src/
 │   │   └── main/
-│   │       └── java/
+│   │       ├── java/
+│   │       └── resources/
 │   ├── Dockerfile.UsersService
 │   │
 │   └── UsersServicePostgreSQL/
@@ -28,7 +49,8 @@ RESTApp/
 ├── ItemsService/
 │   ├── src/
 │   │   └── main/
-│   │       └── java/
+│   │       ├── java/
+│   │       └── resources/
 │   ├── Dockerfile.ItemssService
 │   │
 │   └── ItemsServicePostgreSQL/
@@ -73,33 +95,21 @@ RESTApp/
    git clone git@github.com:MaksimovSanan/SpringLessons.git
    cd SpringLessons/SpringREST/RESTApp
    ```
+   
+2. Соберите jar файлы каждого микросервиса
+   ```bash
+   mvnw install
+   ```
 
-2. Соберите и запустите Docker-контейнеры:
+3. Соберите и запустите Docker-контейнеры:
 
    ```bash
    docker-compose up -d
    ```
+   
+4. Дождитесь развертывания приложения в контейнерах
 
-3. Доступ к приложению Spring Boot:
-   1. Users:
-      1. GET http://localhost:8095/users
-      2. GET http://localhost:8095/users/{id}
-      3. POST http://localhost:8095/users
-      4. DELETE http://localhost:8095/users/{id}
-      5. PATCH http://localhost:8095/users/{id}
-   2. Rental items:
-      1. GET http://localhost:8096/items
-      2. GET http://localhost:8096/items/{id}
-      3. POST http://localhost:8096/items
-      4. DELETE http://localhost:8096/items/{id}
-      5. PATCH http://localhost:8096/items/{id}
-   3. Rent contracts:
-      1. GET http://localhost:8096/rent
-      2. GET http://localhost:8096/rent/{id}
-      3. POST http://localhost:8096/rent
-      4. DELETE http://localhost:8096/rent/{id}
-      5. PATCH http://localhost:8096/rent/{id}
-
+5. Доступ к приложению: http://localhost:8080
 
 ## Настройка
 

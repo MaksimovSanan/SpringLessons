@@ -1,15 +1,15 @@
 version: '3.1'
 
 services:
-#  postgres:
-#    build:
-#      context: ./postgres
-#      dockerfile: Dockerfile.postgres
-#    container_name: my_postgres_container
-#    ports:
-#      - "5432:5432"
-#    networks:
-#      - my_network
+  eureka-server:
+    build:
+      context: EurekaServer
+      dockerfile: Dockerfile.EurekaServer
+    container_name: eureka-server
+    ports:
+      - "8761:8761"
+    networks:
+      - my_network
 
   users_service_postgresql:
     build:
@@ -26,8 +26,10 @@ services:
       context: ./UsersService
       dockerfile: Dockerfile.UsersService
     container_name: users_service_container
-    ports:
-      - "8095:8095"
+#    ports:
+#      - "8095:8095"
+    links:
+      - eureka-server
     networks:
       - my_network
 
@@ -47,21 +49,34 @@ services:
         context: ./ItemsService
         dockerfile: Dockerfile.ItemsService
       container_name: items_service_container
-      ports:
-        - "8096:8096"
+#      ports:
+#        - "8096:8096"
+      links:
+        - eureka-server
       networks:
         - my_network
 
+  web_client:
+    build:
+      context: ./WebClient
+      dockerfile: Dockerfile.WebClient
+    container_name: web_client
+    links:
+      - eureka-server
+    networks:
+      - my_network
 
-#  spring-boot-app:
-#    build:
-#      context: .
-#      dockerfile: src/Dockerfile.restapp
-#    container_name: my_rest_app_container
-#    ports:
-#      - "8090:8090"
-#    networks:
-#      - my_network
+  api_gateway:
+    build:
+      context: ./APIGateway
+      dockerfile: Dockerfile.APIGateway
+    container_name: api_gateway
+    ports:
+      - "8080:8080"
+    links:
+      - eureka-server
+    networks:
+      - my_network
 
 networks:
   my_network:
